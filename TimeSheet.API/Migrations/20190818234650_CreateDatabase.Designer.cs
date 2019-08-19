@@ -9,8 +9,8 @@ using TimeSheet.API.Data;
 namespace timesheet.api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190817224058_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20190818234650_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,7 +51,9 @@ namespace timesheet.api.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Password");
+                    b.Property<byte[]>("PasswordHash");
+
+                    b.Property<byte[]>("PasswordSalt");
 
                     b.Property<string>("Username");
 

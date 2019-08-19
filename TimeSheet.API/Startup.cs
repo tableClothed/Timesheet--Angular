@@ -33,9 +33,14 @@ namespace timesheet.api
             //     options.MinimumSameSitePolicy = SameSiteMode.None;
             // });
 
+            //for connecting with database
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            //it was here already
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //for cors errors (korzystac z posrt 5000 na porcie 4200 mze wywolac problem)
             services.AddCors();
+            //
+            services.AddScoped<IAuthRepository, AuthRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +61,7 @@ namespace timesheet.api
             //app.UseStaticFiles();
             //app.UseCookiePolicy();
 
+            //for cors errors
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseMvc();
         }
